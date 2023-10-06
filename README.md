@@ -1,2 +1,3 @@
-# RhythmGame
-Make a RhythmGame
+## 리듬게임
+> C언어로 만든 간단한 리듬게임이다.
+* 제작중...
