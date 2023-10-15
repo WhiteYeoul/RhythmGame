@@ -1,6 +1,6 @@
 #include "main.h"
 
-/* ÀÔ·Â Å° */
+/* ì…ë ¥ í‚¤ */
 #define KEY_D 0x44 // D
 #define KEY_F 0x46 // F
 #define KEY_J 0x4A // J
@@ -8,14 +8,14 @@
 
 #define SCR_HEIGHT 50
 
-/* Å° ÀÔ·Â »óÅÂ */
+/* í‚¤ ì…ë ¥ ìƒíƒœ */
 int KeyAct[4] = { 0, };
 int KeyState[4] = { 0, };
 
-/* Á¡¼ö */
+/* ì ìˆ˜ */
 unsigned int Score = 0;
 
-/* µ¿ÀÛ ¼ø¼­ */
+/* ë™ì‘ ìˆœì„œ */
 enum Sequence {
 	End,
 	Main,
@@ -25,24 +25,24 @@ enum Sequence {
 };
 enum Sequence sequence = Main;
 
-/* ³ë·¡ */
+/* ë…¸ë˜ */
 char list[3][25] = { "Odysseus.txt", "JUSTITIA.txt", "IronCloud.txt" };
 int longth[3] = { 12000, 8300, 12000 };
 int delay[3] = { 14, 14, 14 };
 
-/* ´õºí ¹öÆÛ¸µ */
+/* ë”ë¸” ë²„í¼ë§ */
 char front_buffer[SCR_HEIGHT][4] = { 0, };
 char back_buffer[SCR_HEIGHT][4] = { 0, };
 
 void Init()
 {
-	/* Ä¿¼­ À¯¹« ¼³Á¤ */
+	/* ì»¤ì„œ ìœ ë¬´ ì„¤ì • */
 	CursorView(FALSE);
-	/* CMD Ã¢ »ö ¼³Á¤ */
+	/* CMD ì°½ ìƒ‰ ì„¤ì • */
 	system("COLOR 0F");
-	/* CMD Ã¢ Á¦¸ñ ¼öÁ¤ */
+	/* CMD ì°½ ì œëª© ìˆ˜ì • */
 	system("title EZ2MAX");
-	/* CMD Ã¢ Å©±â ¼³Á¤*/
+	/* CMD ì°½ í¬ê¸° ì„¤ì •*/
 	system("mode con: cols=150 lines=50");
 }
 
@@ -51,7 +51,7 @@ int ExitGame()
 	if (sequence == End) {
 		MakeBox(50, 16, 92, 27);
 		gotoxy(61, 20);
-		printf("Á¤¸»·Î ³ª°¡½Ã°Ú½À´Ï±î?");
+		printf("ì •ë§ë¡œ ë‚˜ê°€ì‹œê² ìŠµë‹ˆê¹Œ?");
 		gotoxy(62, 23);
 		printf("Yes(Enter)  No(Esc)");
 
@@ -75,7 +75,7 @@ int ExitGame()
 void PrintMainDisplay()
 {
 	if (sequence == Main) {
-		/* Ã¹ È­¸é Ãâ·Â */
+		/* ì²« í™”ë©´ ì¶œë ¥ */
 		gotoxy(35, 10); printf(":\'########::::\'########:::::\'#######:::::\'##::::\'##:::::::\'###:::::::\'##::::\'##:");
 		gotoxy(35, 11); printf(": ##.....:::::..... ##:::::\'##.... ##:::: ###::\'###::::::\'## ##::::::. ##::\'##::");
 		gotoxy(35, 12); printf(": ##:::::::::::::: ##::::::..::::: ##:::: ####\'####:::::\'##:. ##::::::. ##\'##:::");
@@ -86,13 +86,13 @@ void PrintMainDisplay()
 		gotoxy(35, 17); printf(":........:::::........:::::.........:::::..:::::..:::::..:::::..:::::..:::::..::");
 		gotoxy(61, 30); printf("Press Enter Key To Start!!!");
 
-		/* Å° ÀÔ·Â È®ÀÎ */
+		/* í‚¤ ì…ë ¥ í™•ì¸ */
 		while (TRUE) {
-			if (keystate(VK_RETURN)) // Enter°¡ ÀÔ·ÂµÇ¸é
+			if (keystate(VK_RETURN)) // Enterê°€ ì…ë ¥ë˜ë©´
 			{
-				cls;				 // È­¸é Áö¿ò
+				cls;				 // í™”ë©´ ì§€ì›€
 				delay(100);
-				sequence = Select;   // ¼ø¼­ ¼³Á¤
+				sequence = Select;   // ìˆœì„œ ì„¤ì •
 				break;
 			}
 			else if (keystate(VK_ESCAPE))
@@ -109,7 +109,7 @@ void PrintMainDisplay()
 void PrintSelectMusic()
 {
 	if (sequence == Select) {
-		/* ³ë·¡ ¼±ÅÃ È­¸é Ãâ·Â */
+		/* ë…¸ë˜ ì„ íƒ í™”ë©´ ì¶œë ¥ */
 		gotoxy(10, 10); printf(":'######::'########:'##:::::::'########::'######::'########:");
 		gotoxy(10, 11); printf("'##... ##: ##.....:: ##::::::: ##.....::'##... ##:... ##..::");
 		gotoxy(10, 12); printf(" ##:::..:: ##::::::: ##::::::: ##::::::: ##:::..::::: ##::::");
@@ -128,23 +128,23 @@ void PrintSelectMusic()
 		gotoxy(15, 29); printf("..:::::..:::.......::::......:::....:::......:::");
 		MakeBox(85, 10, 132, 30);
 		MakeBox(10, 33, 69, 37);
-		gotoxy(13, 35); printf("Á¶ÀÛÅ° - ¡è  ¡é  |  µÚ·Î°¡±â - Esc  |  ³ë·¡¼±ÅÃ - Enter");
+		gotoxy(13, 35); printf("ì¡°ì‘í‚¤ - â†‘  â†“  |  ë’¤ë¡œê°€ê¸° - Esc  |  ë…¸ë˜ì„ íƒ - Enter");
 
 		int Menu = 0;
-		/* ³ë·¡ ¼±ÅÃ È®ÀÎ */
+		/* ë…¸ë˜ ì„ íƒ í™•ì¸ */
 		while (TRUE)
 		{
-			if (keystate(VK_UP)) // À§ ¹æÇâÅ°
+			if (keystate(VK_UP)) // ìœ„ ë°©í–¥í‚¤
 			{
 				if (Menu == 0) Menu = 2;
 				else Menu -= 1;
 			}
-			else if (keystate(VK_DOWN)) // ¾Æ·¡ ¹æÇâÅ°
+			else if (keystate(VK_DOWN)) // ì•„ë˜ ë°©í–¥í‚¤
 			{
 				if (Menu == 2) Menu = 0;
 				else Menu += 1;
 			}
-			else if (keystate(VK_RETURN)) // ¿£ÅÍÅ°
+			else if (keystate(VK_RETURN)) // ì—”í„°í‚¤
 			{
 				break;
 			}
@@ -153,27 +153,27 @@ void PrintSelectMusic()
 				Menu = -1;
 				break;
 			}
-			/* ¼±ÅÃµÈ ¸Ş´º - ÆÄ¶õ»ö, ±× ¿Ü ¸Ş´º - Èò»ö */
+			/* ì„ íƒëœ ë©”ë‰´ - íŒŒë€ìƒ‰, ê·¸ ì™¸ ë©”ë‰´ - í°ìƒ‰ */
 			switch (Menu) {
 			case 0:
 				SetColor(FOREGROUND_BLUE);
-				gotoxy(90, 15); printf("¢Ü Odysseus");
+				gotoxy(90, 15); printf("â™ª Odysseus");
 				SetColor(FOREGROUND_WHITE);
-				gotoxy(90, 20); printf("¢Ü JUSTITIA");
-				gotoxy(90, 25); printf("¢Ü IronCloud");
+				gotoxy(90, 20); printf("â™ª JUSTITIA");
+				gotoxy(90, 25); printf("â™ª IronCloud");
 				break;
 			case 1:
-				gotoxy(90, 15); printf("¢Ü Odysseus");
+				gotoxy(90, 15); printf("â™ª Odysseus");
 				SetColor(FOREGROUND_BLUE);
-				gotoxy(90, 20); printf("¢Ü JUSTITIA");
+				gotoxy(90, 20); printf("â™ª JUSTITIA");
 				SetColor(FOREGROUND_WHITE);
-				gotoxy(90, 25); printf("¢Ü IronCloud");
+				gotoxy(90, 25); printf("â™ª IronCloud");
 				break;
 			case 2:
-				gotoxy(90, 15); printf("¢Ü Odysseus");
-				gotoxy(90, 20); printf("¢Ü JUSTITIA");
+				gotoxy(90, 15); printf("â™ª Odysseus");
+				gotoxy(90, 20); printf("â™ª JUSTITIA");
 				SetColor(FOREGROUND_BLUE);
-				gotoxy(90, 25); printf("¢Ü IronCloud");
+				gotoxy(90, 25); printf("â™ª IronCloud");
 				SetColor(FOREGROUND_WHITE);
 				break;
 			default:
@@ -181,10 +181,10 @@ void PrintSelectMusic()
 			}
 			delay(100);
 		}
-		/* È­¸é ÃÊ±âÈ­ */
+		/* í™”ë©´ ì´ˆê¸°í™” */
 		cls;
 
-		/* ¼±ÅÃÇÑ ³ë·¡ ½ÇÇà */
+		/* ì„ íƒí•œ ë…¸ë˜ ì‹¤í–‰ */
 		if (Menu == -1)
 		{
 			cls;
@@ -215,27 +215,27 @@ void PrintInGameDisplay()
 {
 	if (sequence == Playing)
 	{
-		/* ³ëÆ® ±¸°£ */
+		/* ë…¸íŠ¸ êµ¬ê°„ */
 		MakeBox(2, 1, 52, 48);
-		/* ÆÇÁ¤¼± */
+		/* íŒì •ì„  */
 		gotoxy(3, 40);
-		printf("¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡");
+		printf("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
 		gotoxy(3, 41);
-		printf("¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡");
-		/* Á¤º¸ ±¸°£ */
+		printf("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
+		/* ì •ë³´ êµ¬ê°„ */
 		MakeBox(60, 22, 90, 28);
 		MakeBox(60, 31, 90, 37);
 		MakeBox(60, 40, 140, 48);
 		MakeBox(100, 31, 130, 37);
 
 
-		/* Á¶ÀÛÅ° */
+		/* ì¡°ì‘í‚¤ */
 		gotoxy(65, 34);
-		printf("Á¶ÀÛÅ° - D, F, J, K");
+		printf("ì¡°ì‘í‚¤ - D, F, J, K");
 
-		/* ÆÇÁ¤ */
+		/* íŒì • */
 		gotoxy(105, 34);
-		printf("ÆÇÁ¤ : ");
+		printf("íŒì • : ");
 	}
 }
 
@@ -245,71 +245,71 @@ void PlayMusic(int num)
 	int j, k;
 	int early[4] = { 0, };
 
-	/* ¶óÀÎº° ³ëÆ® ÀúÀå*/
-	char* line1Ptr = malloc(sizeof(char) * 10000);
-	char* line2Ptr = malloc(sizeof(char) * 10000);
-	char* line3Ptr = malloc(sizeof(char) * 10000);
-	char* line4Ptr = malloc(sizeof(char) * 10000);
+	/* ë¼ì¸ë³„ ë…¸íŠ¸ ì €ì¥*/
+	char* line1Ptr = (char*)malloc(sizeof(char) * 10000);
+	char* line2Ptr = (char*)malloc(sizeof(char) * 10000);
+	char* line3Ptr = (char*)malloc(sizeof(char) * 10000);
+	char* line4Ptr = (char*)malloc(sizeof(char) * 10000);
 
 	DWORD real_delay;
 	clock_t start, end;
-	FILE* fp = fopen(list[num], "r"); // ÀĞ±â¸ğµå
+	FILE* fp = fopen(list[num], "r"); // ì½ê¸°ëª¨ë“œ
 	if (!fp)
 	{
 		MakeBox(45, 20, 100, 26);
 		gotoxy(50, 22);
-		printf("³ëÆ®ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù.");
+		printf("ë…¸íŠ¸íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 		gotoxy(50, 24);
-		printf("3ÃÊ ÈÄ¿¡ ¼±ÅÃÈ­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù.");
+		printf("3ì´ˆ í›„ì— ì„ íƒí™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
 		delay(1000);
 		gotoxy(50, 24);
-		printf("2ÃÊ ÈÄ¿¡ ¼±ÅÃÈ­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù.");
+		printf("2ì´ˆ í›„ì— ì„ íƒí™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
 		delay(1000);
 		gotoxy(50, 24);
-		printf("1ÃÊ ÈÄ¿¡ ¼±ÅÃÈ­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù.");
+		printf("1ì´ˆ í›„ì— ì„ íƒí™”ë©´ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤.");
 		delay(1000);
 		cls;
 		sequence = Select;
 		return;
 	}
-	/* ³ëÆ® ÆÄÀÏ ÀĞ¾î¿À±â */
+	/* ë…¸íŠ¸ íŒŒì¼ ì½ì–´ì˜¤ê¸° */
 	fgets(line1Ptr, 10000, fp);
 	fgets(line2Ptr, 10000, fp);
 	fgets(line3Ptr, 10000, fp);
 	fgets(line4Ptr, 10000, fp);
 
-	/* ´ÙÁß Å° ÀÔ·Â ½º·¹µå */
+	/* ë‹¤ì¤‘ í‚¤ ì…ë ¥ ìŠ¤ë ˆë“œ */
 	_beginthreadex(NULL, 0, (_beginthreadex_proc_type)PressD, NULL, 0, NULL);
 	_beginthreadex(NULL, 0, (_beginthreadex_proc_type)PressF, NULL, 0, NULL);
 	_beginthreadex(NULL, 0, (_beginthreadex_proc_type)PressJ, NULL, 0, NULL);
 	_beginthreadex(NULL, 0, (_beginthreadex_proc_type)PressK, NULL, 0, NULL);
 
-	/* ¸Ê »ı¼º */
+	/* ë§µ ìƒì„± */
 	PrintInGameDisplay();
 
-	/* ³ë·¡ Àç»ı */
+	/* ë…¸ë˜ ì¬ìƒ */
 	if (num == 0)
 	{
 		PlaySound(TEXT("Odysseus.wav"), 0, SND_FILENAME | SND_ASYNC);
 		system("title EZ2MAX - Odysseus");
-		gotoxy(65, 44); printf("¢Ü Now Playing - Odysseus");
+		gotoxy(65, 44); printf("â™ª Now Playing - Odysseus");
 	}
 	else if (num == 1)
 	{
 		PlaySound(TEXT("JUSTITIA.wav"), 0, SND_FILENAME | SND_ASYNC);
 		system("title EZ2MAX - JUSTITIA");
-		gotoxy(65, 44); printf("¢Ü Now Playing - JUSTITIA");
+		gotoxy(65, 44); printf("â™ª Now Playing - JUSTITIA");
 	}
 	else
 	{
 		PlaySound(TEXT("IronCloud.wav"), 0, SND_FILENAME | SND_ASYNC);
 		system("title EZ2MAX - IronCloud");
-		gotoxy(65, 44); printf("¢Ü Now Playing - IronCloud");
+		gotoxy(65, 44); printf("â™ª Now Playing - IronCloud");
 	}
 	start = clock();
 	while (TRUE)
 	{
-		/* ³ëÆ® ±×¸®±â */
+		/* ë…¸íŠ¸ ê·¸ë¦¬ê¸° */
 		for (j = i; j >= 0; j--)
 		{
 			if (j > 40) j = 40;
@@ -322,7 +322,7 @@ void PlayMusic(int num)
 			if (line4Ptr[i - j] == '1')
 				back_buffer[j][3] = '1';
 		}
-		/* ¹Ì¸® ´­¸° ³ëÆ® »èÁ¦ */
+		/* ë¯¸ë¦¬ ëˆŒë¦° ë…¸íŠ¸ ì‚­ì œ */
 		for (j = 0; j < 4; j++) {
 			if (early[j] == 1)
 			{
@@ -331,20 +331,20 @@ void PlayMusic(int num)
 				early[j] = 0;
 			}
 		}
-		/* ·»´õ¸µ */
+		/* ë Œë”ë§ */
 		Render();
 
 		SetColor(NULL);
 		SetColor(FOREGROUND_WHITE);
 		for (k = 0; k < 4; k++)
 		{
-			if (front_buffer[39][k] == '1') miss++; /* miss Ã³¸® */	
+			if (front_buffer[39][k] == '1') miss++; /* miss ì²˜ë¦¬ */	
 			if (KeyAct[k] == 1)
 			{
 				if (KeyState[k] == 1)
 				{
 					if (front_buffer[38][k] == '\0' && front_buffer[39][k] == '\0') KeyState[k] = '\0';
-					/* ·Õ³ëÆ® Early ÆÇÁ¤ */
+					/* ë¡±ë…¸íŠ¸ Early íŒì • */
 					else if (front_buffer[37][k] == '1' && front_buffer[38][k] == '1')
 					{
 						LongCombo++;
@@ -355,7 +355,7 @@ void PlayMusic(int num)
 						gotoxy(112, 34);
 						printf("GOOD");
 					}
-					/* ·Õ³ëÆ® COOL ÆÇÁ¤ */
+					/* ë¡±ë…¸íŠ¸ COOL íŒì • */
 					else if (front_buffer[38][k] == '1' && front_buffer[39][k] == '1')
 					{
 						LongCombo++;
@@ -365,7 +365,7 @@ void PlayMusic(int num)
 						gotoxy(112, 34);
 						printf("COOL");
 					}
-					/* ´Ü³ëÆ® Early ÆÇÁ¤ */
+					/* ë‹¨ë…¸íŠ¸ Early íŒì • */
 					else if (front_buffer[38][k] == '1' && front_buffer[39][k] == '\0')
 					{
 						Combo++;
@@ -376,7 +376,7 @@ void PlayMusic(int num)
 						gotoxy(112, 34);
 						printf("GOOD");
 					}
-					/* ´Ü³ëÆ® COOL ÆÇÁ¤ */
+					/* ë‹¨ë…¸íŠ¸ COOL íŒì • */
 					else if (front_buffer[39][k] == '1')
 					{
 						Combo++;
@@ -391,7 +391,7 @@ void PlayMusic(int num)
 				LongCombo = 0;
 			}
 		}
-		/* MISS¶ß¸é COMBO ÃÊ±âÈ­ */
+		/* MISSëœ¨ë©´ COMBO ì´ˆê¸°í™” */
 		if (miss > 0) Combo = 0;
 
 		gotoxy(65, 25);
@@ -405,7 +405,7 @@ void PlayMusic(int num)
 		i++;
 		if (i > longth[num]) break;
 		if (keystate(VK_ESCAPE)) break;
-		/* µô·¹ÀÌ È®ÀÎ */
+		/* ë”œë ˆì´ í™•ì¸ */
 		end = clock();
 		real_delay = delay[num] - (end - start);
 		gotoxy(115, 45);
@@ -413,7 +413,7 @@ void PlayMusic(int num)
 		Sleep(real_delay);
 		start = clock();
 	}
-	/* Á¾·á */
+	/* ì¢…ë£Œ */
 	free(line1Ptr);
 	free(line2Ptr);
 	free(line3Ptr);
@@ -425,14 +425,14 @@ void PlayMusic(int num)
 	sequence = Result;
 }
 
-/* Å°º¸µå - D */
+/* í‚¤ë³´ë“œ - D */
 void PressD()
 {
 	while (TRUE)
 	{
 		if (keystate(KEY_D))
 		{
-			/* ´­·¶À» ¶§ »ö±ò ³ªÅ¸³»±â */
+			/* ëˆŒë €ì„ ë•Œ ìƒ‰ê¹” ë‚˜íƒ€ë‚´ê¸° */
 			back_buffer[42][0] = '1';
 			back_buffer[43][0] = '1';
 			back_buffer[44][0] = '1';
@@ -450,7 +450,7 @@ void PressD()
 	}
 }
 
-/* Å°º¸µå - F */
+/* í‚¤ë³´ë“œ - F */
 void PressF()
 {
 	while (TRUE) {
@@ -473,7 +473,7 @@ void PressF()
 	}
 }
 
-/* Å°º¸µå - J */
+/* í‚¤ë³´ë“œ - J */
 void PressJ()
 {
 	while (TRUE) {
@@ -496,7 +496,7 @@ void PressJ()
 	}
 }
 
-/* Å°º¸µå - K */
+/* í‚¤ë³´ë“œ - K */
 void PressK()
 {
 	while (TRUE) {
@@ -521,7 +521,7 @@ void PressK()
 
 void Render()
 {
-	/* ¹é ¹öÆÛ¿¡ ÀÛ¼º */
+	/* ë°± ë²„í¼ì— ì‘ì„± */
 	int x, y;
 	for (y = 2; y < SCR_HEIGHT; y++)
 	{
@@ -548,7 +548,7 @@ void Render()
 		}
 	}
 
-	/* ¹é¹öÆÛ¿¡ ÀÛ¼ºÇÑ ³»¿ëÀ» ÇÁ·ĞÆ®¹öÆÛ¿¡ ÀúÀå */
+	/* ë°±ë²„í¼ì— ì‘ì„±í•œ ë‚´ìš©ì„ í”„ë¡ íŠ¸ë²„í¼ì— ì €ì¥ */
 	for (y = 2; y < SCR_HEIGHT; y++)
 	{
 		for (x = 0; x < 4; x++)
@@ -583,24 +583,24 @@ void ResultScreen()
 
 int main(void)
 {
-	/* ¼±ÀÛ¾÷ */
+	/* ì„ ì‘ì—… */
 	Init();
 
 	while (TRUE)
 	{
-		/* Ã¹ È­¸é */
+		/* ì²« í™”ë©´ */
 		PrintMainDisplay();
 
-		/* ³ë·¡ ¼±ÅÃ */
+		/* ë…¸ë˜ ì„ íƒ */
 		PrintSelectMusic();
 
-		/* °ÔÀÓ ÇÃ·¹ÀÌ */
+		/* ê²Œì„ í”Œë ˆì´ */
 		PrintInGameDisplay();
 
-		/* °á°ú Ãâ·Â */
+		/* ê²°ê³¼ ì¶œë ¥ */
 		ResultScreen();
 
-		/* °ÔÀÓ ²ô±â */
+		/* ê²Œì„ ë„ê¸° */
 		if (ExitGame()) break;
 	}
 
