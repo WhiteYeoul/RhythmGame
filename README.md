@@ -2,20 +2,22 @@
 > C언어로 제작한 리듬게임입니다.
 - 플레이 영상 : https://youtu.be/sKeQ_WY8QhI
 
-## 1. 메인화면
-![메인화면](https://github.com/WhiteYeoul/RhythmGame/assets/102175112/37a2c82c-f08f-425d-8e6c-4fa3113dadb7)
+## 1. 제작기간
+- 2023.9.27 ~ 2023.10.4
 
-## 2. 선택화면
-![선택화면](https://github.com/WhiteYeoul/RhythmGame/assets/102175112/ff3f9e0b-8c8d-48f6-8b75-09dbad38f194)
+## 2. 사용언어
+- C language
 
-## 3. 플레이화면
-![플레이화면](https://github.com/WhiteYeoul/RhythmGame/assets/102175112/48ba8880-bf55-4543-9c09-40ff1695fcdb)
+## 3. 제작
+- 키 입력을 받기 위해 GetAsyncKeyState()를 사용했습니다.
+- 다중 키 입력을 위해 쓰레드 함수 _beginthreadex()를 사용했습니다.
+- 깜빡임 방지를 위해 더블 버퍼링 기법을 사용했습니다.
+- 각 화면 순서 설정을 enum으로 관리했습니다.
+- 노트는 .txt파일로 저장 후 읽어들이는 방식을 사용했습니다.
+- 읽어 들인 노트는 동적 할당을 통해 저장한 후 노래가 끝나면 해제를 하여 초기화 시켜주었습니다.
 
-## 4. 결과화면
-![결과화면](https://github.com/WhiteYeoul/RhythmGame/assets/102175112/85e36a7b-d3fe-4e6c-9637-64d11df055d2)
-
-## 5. 나가기
-![나가기화면](https://github.com/WhiteYeoul/RhythmGame/assets/102175112/1995b75c-b620-4052-b185-4bdbe5ce5557)
-
-## 6. 파일이 없을 경우
-![파일없음](https://github.com/WhiteYeoul/RhythmGame/assets/102175112/19b4f38b-fdc7-4c8c-94fc-7f5e2195966b)
+## 4. 평가
+- C언어를 한달 간 배우고 추가로 공부하여 제작한 게임입니다.
+- 제작하며 가장 중요했던 것이 쓰레드와 더블 버퍼링이였고, 더블 버퍼링을 구현하는데 시간이 오래 걸렸습니다.
+- 노트 내려오는 속도를 빠르게 했더니 정확하게 치지 않으면 대부분 MISS처리가 났습니다.
+- 처음 만들어본 게임이라 이 정도 결과가 나온 것만으로 만족했지만, 이것을 기반으로 C++과 언리얼엔진을 다뤄서 게임을 제작해볼 예정입니다.
